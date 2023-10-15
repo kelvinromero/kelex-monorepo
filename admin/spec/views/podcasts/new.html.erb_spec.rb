@@ -13,7 +13,7 @@ RSpec.describe "podcasts/new", type: :view do
   it "renders new podcast form" do
     render
 
-    assert_select "form[action=?][method=?]", podcasts_path, "post" do
+    assert_select "form[action=?][method=?]", user_podcast_path, "post" do
 
       assert_select "input[name=?]", "podcast[title]"
 

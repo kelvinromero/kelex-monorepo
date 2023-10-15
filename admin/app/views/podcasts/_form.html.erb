@@ -1,4 +1,4 @@
-<%= form_with(model: podcast) do |form| %>
+<%= form_with(model: podcast, url: [user, podcast]) do |form| %>
   <% if podcast.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(podcast.errors.count, "error") %> prohibited this podcast from being saved:</h2>

@@ -28,7 +28,7 @@ RSpec.describe "/podcasts", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       Podcast.create! valid_attributes
-      get podcasts_url
+      get user_podcasts_url
       expect(response).to be_successful
     end
   end
@@ -36,14 +36,14 @@ RSpec.describe "/podcasts", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       podcast = Podcast.create! valid_attributes
-      get podcast_url(podcast)
+      get user_podcast_path(podcast)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_podcast_url
+      get user_podcast_pathurl
       expect(response).to be_successful
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe "/podcasts", type: :request do
   describe "GET /edit" do
     it "renders a successful response" do
       podcast = Podcast.create! valid_attributes
-      get edit_podcast_url(podcast)
+      get edit_user_podcast_path(podcast)
       expect(response).to be_successful
     end
   end
@@ -66,7 +66,7 @@ RSpec.describe "/podcasts", type: :request do
 
       it "redirects to the created podcast" do
         post podcasts_url, params: { podcast: valid_attributes }
-        expect(response).to redirect_to(podcast_url(Podcast.last))
+        expect(response).to redirect_to(user_podcast_path(Podcast.last))
       end
     end
 
@@ -94,16 +94,16 @@ RSpec.describe "/podcasts", type: :request do
 
       it "updates the requested podcast" do
         podcast = Podcast.create! valid_attributes
-        patch podcast_url(podcast), params: { podcast: new_attributes }
+        patch user_podcast_path(podcast), params: { podcast: new_attributes }
         podcast.reload
         skip("Add assertions for updated state")
       end
 
       it "redirects to the podcast" do
         podcast = Podcast.create! valid_attributes
-        patch podcast_url(podcast), params: { podcast: new_attributes }
+        patch user_podcast_path(podcast), params: { podcast: new_attributes }
         podcast.reload
-        expect(response).to redirect_to(podcast_url(podcast))
+        expect(response).to redirect_to(user_podcast_path(podcast))
       end
     end
 
@@ -111,7 +111,7 @@ RSpec.describe "/podcasts", type: :request do
     
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         podcast = Podcast.create! valid_attributes
-        patch podcast_url(podcast), params: { podcast: invalid_attributes }
+        patch user_podcast_path(podcast), params: { podcast: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     
@@ -122,13 +122,13 @@ RSpec.describe "/podcasts", type: :request do
     it "destroys the requested podcast" do
       podcast = Podcast.create! valid_attributes
       expect {
-        delete podcast_url(podcast)
+        delete user_podcast_path(podcast)
       }.to change(Podcast, :count).by(-1)
     end
 
     it "redirects to the podcasts list" do
       podcast = Podcast.create! valid_attributes
-      delete podcast_url(podcast)
+      delete user_podcast_path(podcast)
       expect(response).to redirect_to(podcasts_url)
     end
   end
