@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV['DB_HOST'] || 'db' %>
+  username: <%= ENV['DB_USER'] || 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] || 'password' %>
+  database: <%= ENV['DB_NAME'] || 'podcast_admin' %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: podcast_admin_test
+
+production:
+  <<: *default
+  database: podcast_admin_production
+  username: podcast_admin_production_user
+  password: <%= ENV['DB_PRODUCTION_PASSWORD'] || 'your_production_password' %>
+  pool: 15
