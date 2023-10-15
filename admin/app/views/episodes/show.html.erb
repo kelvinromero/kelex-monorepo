@@ -3,8 +3,8 @@
 <%= render @episode %>
 
 <div>
-  <%= link_to "Edit this episode", edit_episode_path(@episode) %> |
-  <%= link_to "Back to episodes", episodes_path %>
+  <%= link_to "Edit this episode", edit_user_podcast_episode_path(@episode) %> |
+  <%= link_to "Back to episodes", user_podcast_episode_path %>
 
-  <%= button_to "Destroy this episode", @episode, method: :delete %>
+  <%= button_to "Destroy this episode", user_podcast_episode_path(@user, @podcast, @episode), method: :delete %>
 </div>

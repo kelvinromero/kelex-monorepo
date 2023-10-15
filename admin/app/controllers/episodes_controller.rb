@@ -1,5 +1,7 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: %i[ show edit update destroy ]
+  before_action :set_podcast, only: %i[ index show edit new create ]
+  before_action :set_user, only: %i[ index show edit new create ]
 
   # GET /episodes or /episodes.json
   def index
@@ -25,7 +27,7 @@ class EpisodesController < ApplicationController
 
     respond_to do |format|
       if @episode.save
-        format.html { redirect_to episode_url(@episode), notice: "Episode was successfully created." }
+        format.html { redirect_to user_podcast_episode_url(@user, @podcast, @episode), notice: "Episode was successfully created." }
         format.json { render :show, status: :created, location: @episode }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -66,5 +68,13 @@ class EpisodesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def episode_params
       params.require(:episode).permit(:title, :description, :audio_file, :podcast_id)
+    end
+
+    def set_podcast
+      @podcast = Podcast.find(params[:podcast_id])
+    end
+
+    def set_user
+      @user = User.find(params[:user_id])
     end
 end
