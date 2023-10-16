@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @podcast %>
+
+<div>
+  <%= link_to "Edit this podcast", edit_user_podcast_path(@user, @podcast) %> |
+  <%= link_to "Back to podcasts", user_podcasts_path %>
+
+  <%= button_to "Destroy this podcast", user_podcast_path(@user, @podcast), method: :delete %>
+</div>
