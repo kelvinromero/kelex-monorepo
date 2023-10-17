@@ -1,0 +1,11 @@
+type Query {
+    episodes: [Episode]
+    episodesByTitle(title: String!): [Episode]
+    findEpisodeByFuzzyTitle(title: String!): [Episode]
+}
+
+type Episode {
+    id: ID!
+    title: String!
+    description: String!
+}
