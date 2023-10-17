@@ -39,7 +39,7 @@ class PodcastsController < ApplicationController
   def update
     respond_to do |format|
       if @podcast.update(podcast_params)
-        format.html { redirect_to user_podcast_path(@user, podcast), notice: "Podcast was successfully updated." }
+        format.html { redirect_to user_podcast_path(@user, @podcast), notice: "Podcast was successfully updated." }
         format.json { render :show, status: :ok, location: @podcast }
       else
         format.html { render :edit, status: :unprocessable_entity }
