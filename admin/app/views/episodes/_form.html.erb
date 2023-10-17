@@ -1,6 +1,6 @@
 <%= form_with(model: episode, url: [user, podcast, episode]) do |form| %>
   <% if episode.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
 
       <ul>
@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :audio_file, style: "display: block" %>
-    <%= form.text_field :audio_file %>
+  <div class="mb-3">
+    <%= form.label :audio_file, class: "form-label" %>
+    <%= form.text_field :audio_file, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :podcast_id, style: "display: block" %>
-    <%= form.text_field :podcast_id %>
-  </div>
+<!--  <div class="mb-3">-->
+    <%#= form.label :podcast_id, class: "form-label" %>
+    <%#= form.text_field :podcast_id, class: "form-control" %>
+<!--  </div>-->
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -1,7 +1,7 @@
 class EpisodesController < ApplicationController
-  before_action :set_episode, only: %i[ show edit update destroy ]
-  before_action :set_podcast, only: %i[ index show edit new create ]
   before_action :set_user, only: %i[ index show edit new create ]
+  before_action :set_podcast, only: %i[ index show edit new create ]
+  before_action :set_episode, only: %i[ show edit update destroy ]
 
   # GET /episodes or /episodes.json
   def index
@@ -23,7 +23,7 @@ class EpisodesController < ApplicationController
 
   # POST /episodes or /episodes.json
   def create
-    @episode = Episode.new(episode_params)
+    @episode = Episode.new(episode_params.merge(podcast_id: @podcast.id))
 
     respond_to do |format|
       if @episode.save
@@ -54,7 +54,7 @@ class EpisodesController < ApplicationController
     @episode.destroy
 
     respond_to do |format|
-      format.html { redirect_to episodes_url, notice: "Episode was successfully destroyed." }
+      format.html { redirect_to user_podcast_episodes_url, notice: "Episode was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -71,7 +71,7 @@ class EpisodesController < ApplicationController
     end
 
     def set_podcast
-      @podcast = Podcast.find(params[:podcast_id])
+      @podcast = @user.podcasts.last
     end
 
     def set_user
