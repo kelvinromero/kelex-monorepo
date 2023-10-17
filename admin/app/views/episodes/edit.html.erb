@@ -1,10 +1,23 @@
-<h1>Editing episode</h1>
+<div class="row mt-5">
+  <div class="col">
+    <h1>Editing episode</h1>
+  </div>
+
+  <div class="col-3 d-inline-flex p-2">
+    <%= link_to "All Episodes",
+                user_podcast_episodes_path,
+                class: 'btn btn-outline-primary'
+    %>
+
+    <%= link_to "Show this episode",
+                user_podcast_episode_path(@user, @podcast, @episode),
+                class: 'btn btn-primary ms-2'
+    %>
+  </div>
+</div>
+
+
+<hr class="my-5">
+
 
 <%= render "form", episode: @episode, podcast: @podcast, user: @user %>
-
-<br>
-
-<div>
-  <%= link_to "Show this episode", user_podcast_episode_path(@user, @podcast, @episode) %> |
-  <%= link_to "Back to episodes", user_podcast_episodes_path %>
-</div>

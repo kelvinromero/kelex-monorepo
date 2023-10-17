@@ -1,14 +1,27 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Episodes</h1>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col">
+      <h1>Episodes</h1>
+    </div>
 
-<div id="episodes">
-  <% @episodes.each do |episode| %>
-    <%= render episode %>
-    <p>
-      <%= link_to "Show this episode", user_podcast_episode_path(@user, @podcast, episode) %>
-    </p>
-  <% end %>
+    <div class="col-2 d-inline-flex p-2">
+      <a class="btn btn-primary w-100" href="<%= new_user_podcast_episode_path %>" role="button">New Episode</a>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="row">
+    <div class="col">
+      <div id="episodes" class="list-group">
+        <% @episodes.each do |episode| %>
+          <a href="<%= user_podcast_episode_path(@user, @podcast, episode) %>" class="list-group-item">
+            <%= episode.title %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New episode", new_user_podcast_episode_path %>
