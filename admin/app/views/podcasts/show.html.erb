@@ -1,10 +1,32 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @podcast %>
+<div class="row my-5">
+  <div class="col">
+    <h1>Podcast</h1>
+  </div>
 
-<div>
-  <%= link_to "Edit this podcast", edit_user_podcast_path(@user, @podcast) %> |
-  <%= link_to "Back to podcasts", user_podcasts_path %>
+  <div class="col-3 d-inline-flex p-2">
+    <%= button_to "Delete podcast",
+                  user_podcast_path(@user, @podcast),
+                  method: :delete,
+                  class: "btn btn-outline-danger",
+                  role: "button"
+    %>
 
-  <%= button_to "Destroy this podcast", user_podcast_path(@user, @podcast), method: :delete %>
+    <%= link_to "Edit this podcast",
+                edit_user_podcast_path(@user, @podcast),
+                class: "btn btn-primary ms-2",
+                role: "button"
+
+    %>
+  </div>
 </div>
+
+<hr class="my-5">
+
+<div class="row">
+  <div class="col">
+    <%= render @podcast %>
+  </div>
+</div>
+

@@ -22,7 +22,7 @@ class PodcastsController < ApplicationController
 
   # POST /podcasts or /podcasts.json
   def create
-    @podcast = Podcast.new(podcast_params)
+    @podcast = Podcast.new(podcast_params.merge(user_id: @user.id))
 
     respond_to do |format|
       if @podcast.save
@@ -38,8 +38,8 @@ class PodcastsController < ApplicationController
   # PATCH/PUT /podcasts/1 or /podcasts/1.json
   def update
     respond_to do |format|
-      if @podcast.update(podcast_params)
-        format.html { redirect_to user_podcast_path(@user, podcast), notice: "Podcast was successfully updated." }
+      if @podcast.update(podcast_params.merge(user_id: @user.id))
+        format.html { redirect_to user_podcast_path(@user, @podcast), notice: "Podcast was successfully updated." }
         format.json { render :show, status: :ok, location: @podcast }
       else
         format.html { render :edit, status: :unprocessable_entity }
