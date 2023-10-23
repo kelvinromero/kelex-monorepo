@@ -1,17 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users
 
-  # Dashboard
+  root to: "home#index", to: redirect('/users/')
 
-
-  resources :users do
+  resources :users, only: [:index, :show, :edit, :update] do
     resources :podcasts do
       resources :episodes
     end
-    get 'dashboard', to: 'dashboard#index'
+    resource :dashboard, only: [:show]
   end
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"N
 end

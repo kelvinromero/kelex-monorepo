@@ -1,10 +1,24 @@
-<h1>Editing user</h1>
+<div class="row my-5">
+  <div class="col">
+    <h1>My account</h1>
+  </div>
+
+  <div class="col-3 d-inline-flex p-2">
+    <%= button_to "Delete account",
+                  @user,
+                  method: :delete,
+                  class: "btn btn-outline-danger",
+                  role: "button"
+    %>
+
+    <%= link_to "Create Podcast",
+                new_user_podcast_path(@user),
+                class: "btn btn-primary ms-2",
+                role: "button"
+    %>
+  </div>
+</div>
+
+<hr class="my-5">
 
 <%= render "form", user: @user %>
-
-<br>
-
-<div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
-</div>

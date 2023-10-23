@@ -1,8 +1,8 @@
-class DashboardController < ApplicationController
+class DashboardsController < ApplicationController
   before_action :set_user
   before_action :set_podcast
 
-  def index
+  def show
 
   end
 
