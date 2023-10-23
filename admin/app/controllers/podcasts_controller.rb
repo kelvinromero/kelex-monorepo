@@ -52,7 +52,7 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     respond_to do |format|
-      format.html { redirect_to podcasts_url, notice: "Podcast was successfully destroyed." }
+      format.html { redirect_to new_user_podcast_url, notice: "Podcast was successfully destroyed." }
       format.json { head :no_content }
     end
   end

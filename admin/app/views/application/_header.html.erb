@@ -11,6 +11,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="<%= user_dashboard_path(@user) %>">Dashboard</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= edit_user_path @user %>">My account</a>
+          </li>
           <% if @user.try(:podcasts).try(:last) %>
             <li class="nav-item">
               <a class="nav-link" href="<%= user_podcast_path @user, @user.podcasts.last %>">Podcast</a>
@@ -19,9 +22,6 @@
               <a class="nav-link" href="<%= user_podcast_episodes_path(@user, @user.podcasts.last) %>">Episodes</a>
             </li>
           <% else %>
-            <li class="nav-item">
-              <a class="nav-link" href="<%= edit_user_path @user %>">My account</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="<%= new_user_podcast_path @user %>">Create Podcast</a>
             </li>
