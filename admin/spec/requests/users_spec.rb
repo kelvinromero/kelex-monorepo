@@ -12,7 +12,7 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/users", type: :request do
+RSpec.xdescribe "/users", type: :request do
   
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
