@@ -1,6 +1,5 @@
 class PodcastsController < ApplicationController
   before_action :set_podcast, only: %i[ show edit update destroy ]
-  before_action :set_user, only: %i[ index show new edit create update destroy ]
 
   # GET /podcasts or /podcasts.json
   def index
@@ -53,7 +52,7 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     respond_to do |format|
-      format.html { redirect_to podcasts_url, notice: "Podcast was successfully destroyed." }
+      format.html { redirect_to new_user_podcast_url, notice: "Podcast was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -67,9 +66,5 @@ class PodcastsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def podcast_params
       params.require(:podcast).permit(:title, :description, :cover_art, :user_id)
-    end
-
-    def set_user
-      @user = User.find(params[:user_id])
     end
 end

@@ -1,5 +1,4 @@
 class EpisodesController < ApplicationController
-  before_action :set_user, only: %i[ index show edit new create ]
   before_action :set_podcast, only: %i[ index show edit new create ]
   before_action :set_episode, only: %i[ show edit update destroy ]
 
@@ -72,9 +71,5 @@ class EpisodesController < ApplicationController
 
     def set_podcast
       @podcast = @user.podcasts.last
-    end
-
-    def set_user
-      @user = User.find(params[:user_id])
     end
 end

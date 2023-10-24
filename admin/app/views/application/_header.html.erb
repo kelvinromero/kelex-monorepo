@@ -6,9 +6,13 @@
       </button>
       <a class="navbar-brand" href="#">Kelex</a>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="<%= user_dashboard_path(@user) %>">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= edit_user_path @user %>">My account</a>
           </li>
           <% if @user.try(:podcasts).try(:last) %>
             <li class="nav-item">
@@ -19,17 +23,12 @@
             </li>
           <% else %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= user_path @user %>">My user</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="<%= new_user_podcast_path @user %>">Create Podcast</a>
             </li>
           <% end %>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+
+        <%= render partial: 'header_menu' %>
       </div>
     </div>
   </nav>

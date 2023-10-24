@@ -14,12 +14,14 @@
     </header>
     <main class="container">
 
-      <div class="columns">
+      <div class="col">
         <%= render "application/sidenav" %>
       </div>
 
-      <div class="columns">
+      <div class="col">
         <%= yield %>
+
+        <%= render "application/notice" %>
       </div>
 
     </main>
