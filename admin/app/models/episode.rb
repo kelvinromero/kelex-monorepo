@@ -1,7 +1,10 @@
 class Episode < ApplicationRecord
   after_save :publish_to_queue
 
-  belongs_to :podcast
+  belongs_to :podcast,
+             inverse_of: :episodes,
+             class_name: "Podcast",
+             foreign_key: "podcast_id"
 
   validates :title, presence: true
 
