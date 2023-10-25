@@ -1,6 +1,9 @@
 dc := docker-compose
-srv := run web
-run := ${dc} ${srv}
+svrun := run web
+run := ${dc} ${svrun}
+
+up:
+	${dc} up
 
 upd:
 	${dc} up -d
@@ -9,20 +12,17 @@ down:
 	${dc} down
 
 build:
-	${dc} up --build
+	${dc} build
 
 bundle:
 	${run} bundle install
 	${dc} up --build
 
-guard:
-	${run} bundle exec guard -p
-
 bash:
 	${run} bash
 
-rspec:
-	${run} bundle exec rspec $(f)
+test:
+	${run} bundle exec rspec
 
 migrate:
 	${run} rails db:migrate
@@ -34,3 +34,4 @@ setup:
 	make build
 	make migrate
 	make seed
+	make up
