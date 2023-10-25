@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EpisodesController < ApplicationController
   before_action :set_podcast, only: %i[index show edit new create]
   before_action :set_episode, only: %i[show edit update destroy]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -9,7 +11,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'requires a unique email' do
-      user = User.create!(email: 'mail@teste.com', password: 'a12312sdasdASDuijn9Ku1aa1')
+      User.create!(email: 'mail@teste.com', password: 'a12312sdasdASDuijn9Ku1aa1')
       user2 = User.new(email: 'mail@teste.com')
       user2.valid?
       expect(user2.errors.messages).to have_key(:email)
