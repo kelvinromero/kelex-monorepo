@@ -1,1 +1,1 @@
-json.array! @episodes, partial: "episodes/episode", as: :episode
+json.array! @episodes, partial: 'episodes/episode', as: :episode

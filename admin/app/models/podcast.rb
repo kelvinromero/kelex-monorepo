@@ -3,8 +3,8 @@ class Podcast < ApplicationRecord
   has_many :episodes,
            dependent: :destroy,
            inverse_of: :podcast,
-           class_name: "Episode",
-           foreign_key: "podcast_id"
+           class_name: 'Episode',
+           foreign_key: 'podcast_id'
 
   validates :title, presence: true
   validates :description, presence: true

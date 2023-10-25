@@ -1,6 +1,6 @@
 class EpisodesController < ApplicationController
-  before_action :set_podcast, only: %i[ index show edit new create ]
-  before_action :set_episode, only: %i[ show edit update destroy ]
+  before_action :set_podcast, only: %i[index show edit new create]
+  before_action :set_episode, only: %i[show edit update destroy]
 
   # GET /episodes or /episodes.json
   def index
@@ -8,8 +8,7 @@ class EpisodesController < ApplicationController
   end
 
   # GET /episodes/1 or /episodes/1.json
-  def show
-  end
+  def show; end
 
   # GET /episodes/new
   def new
@@ -17,8 +16,7 @@ class EpisodesController < ApplicationController
   end
 
   # GET /episodes/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /episodes or /episodes.json
   def create
@@ -26,7 +24,9 @@ class EpisodesController < ApplicationController
 
     respond_to do |format|
       if @episode.save
-        format.html { redirect_to user_podcast_episode_url(@user, @podcast, @episode), notice: "Episode was successfully created." }
+        format.html do
+          redirect_to user_podcast_episode_url(@user, @podcast, @episode), notice: 'Episode was successfully created.'
+        end
         format.json { render :show, status: :created, location: @episode }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class EpisodesController < ApplicationController
   def update
     respond_to do |format|
       if @episode.update(episode_params)
-        format.html { redirect_to episode_url(@episode), notice: "Episode was successfully updated." }
+        format.html { redirect_to episode_url(@episode), notice: 'Episode was successfully updated.' }
         format.json { render :show, status: :ok, location: @episode }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,23 +53,24 @@ class EpisodesController < ApplicationController
     @episode.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_podcast_episodes_url, notice: "Episode was successfully destroyed." }
+      format.html { redirect_to user_podcast_episodes_url, notice: 'Episode was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_episode
-      @episode = Episode.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def episode_params
-      params.require(:episode).permit(:title, :description, :audio_file, :podcast_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_episode
+    @episode = Episode.find(params[:id])
+  end
 
-    def set_podcast
-      @podcast = @user.podcasts.last
-    end
+  # Only allow a list of trusted parameters through.
+  def episode_params
+    params.require(:episode).permit(:title, :description, :audio_file, :podcast_id)
+  end
+
+  def set_podcast
+    @podcast = @user.podcasts.last
+  end
 end

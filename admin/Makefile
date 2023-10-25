@@ -24,6 +24,9 @@ bash:
 test:
 	${run} bundle exec rspec
 
+lint:
+	${run} rubocop -a
+
 migrate:
 	${run} rails db:migrate
 

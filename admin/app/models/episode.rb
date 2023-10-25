@@ -3,8 +3,8 @@ class Episode < ApplicationRecord
 
   belongs_to :podcast,
              inverse_of: :episodes,
-             class_name: "Podcast",
-             foreign_key: "podcast_id"
+             class_name: 'Podcast',
+             foreign_key: 'podcast_id'
 
   validates :title, presence: true
 
@@ -12,9 +12,9 @@ class Episode < ApplicationRecord
 
   def publish_to_queue
     message = {
-      id: id,
-      title: title,
-      description: description,
+      id:,
+      title:,
+      description:,
       media_url: audio_file,
       podcast: {
         id: podcast.id,

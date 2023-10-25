@@ -12,94 +12,91 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.xdescribe "/podcasts", type: :request do
-  
+RSpec.xdescribe '/podcasts', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Podcast. As you add validations to Podcast, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    skip('Add a hash of attributes valid for your model')
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    skip('Add a hash of attributes invalid for your model')
+  end
 
-  describe "GET /index" do
-    it "renders a successful response" do
+  describe 'GET /index' do
+    it 'renders a successful response' do
       Podcast.create! valid_attributes
       get user_podcasts_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
+  describe 'GET /show' do
+    it 'renders a successful response' do
       podcast = Podcast.create! valid_attributes
       get user_podcast_path(podcast)
       expect(response).to be_successful
     end
   end
 
-  describe "GET /new" do
-    it "renders a successful response" do
+  describe 'GET /new' do
+    it 'renders a successful response' do
       get user_podcast_pathurl
       expect(response).to be_successful
     end
   end
 
-  describe "GET /edit" do
-    it "renders a successful response" do
+  describe 'GET /edit' do
+    it 'renders a successful response' do
       podcast = Podcast.create! valid_attributes
       get edit_user_podcast_path(podcast)
       expect(response).to be_successful
     end
   end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Podcast" do
-        expect {
+  describe 'POST /create' do
+    context 'with valid parameters' do
+      it 'creates a new Podcast' do
+        expect do
           post podcasts_url, params: { podcast: valid_attributes }
-        }.to change(Podcast, :count).by(1)
+        end.to change(Podcast, :count).by(1)
       end
 
-      it "redirects to the created podcast" do
+      it 'redirects to the created podcast' do
         post podcasts_url, params: { podcast: valid_attributes }
         expect(response).to redirect_to(user_podcast_path(Podcast.last))
       end
     end
 
-    context "with invalid parameters" do
-      it "does not create a new Podcast" do
-        expect {
+    context 'with invalid parameters' do
+      it 'does not create a new Podcast' do
+        expect do
           post podcasts_url, params: { podcast: invalid_attributes }
-        }.to change(Podcast, :count).by(0)
+        end.to change(Podcast, :count).by(0)
       end
 
-    
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post podcasts_url, params: { podcast: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
-    
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  describe 'PATCH /update' do
+    context 'with valid parameters' do
+      let(:new_attributes) do
+        skip('Add a hash of attributes valid for your model')
+      end
 
-      it "updates the requested podcast" do
+      it 'updates the requested podcast' do
         podcast = Podcast.create! valid_attributes
         patch user_podcast_path(podcast), params: { podcast: new_attributes }
         podcast.reload
-        skip("Add assertions for updated state")
+        skip('Add assertions for updated state')
       end
 
-      it "redirects to the podcast" do
+      it 'redirects to the podcast' do
         podcast = Podcast.create! valid_attributes
         patch user_podcast_path(podcast), params: { podcast: new_attributes }
         podcast.reload
@@ -107,26 +104,24 @@ RSpec.xdescribe "/podcasts", type: :request do
       end
     end
 
-    context "with invalid parameters" do
-    
+    context 'with invalid parameters' do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         podcast = Podcast.create! valid_attributes
         patch user_podcast_path(podcast), params: { podcast: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
-    
     end
   end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested podcast" do
+  describe 'DELETE /destroy' do
+    it 'destroys the requested podcast' do
       podcast = Podcast.create! valid_attributes
-      expect {
+      expect do
         delete user_podcast_path(podcast)
-      }.to change(Podcast, :count).by(-1)
+      end.to change(Podcast, :count).by(-1)
     end
 
-    it "redirects to the podcasts list" do
+    it 'redirects to the podcasts list' do
       podcast = Podcast.create! valid_attributes
       delete user_podcast_path(podcast)
       expect(response).to redirect_to(podcasts_url)

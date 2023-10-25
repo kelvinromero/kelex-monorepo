@@ -1,1 +1,1 @@
-json.array! @podcasts, partial: "podcasts/podcast", as: :podcast
+json.array! @podcasts, partial: 'podcasts/podcast', as: :podcast
