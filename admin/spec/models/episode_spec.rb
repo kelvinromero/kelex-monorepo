@@ -20,9 +20,22 @@ RSpec.describe Episode, type: :model do
   end
 
   it "publishes a message to the BunnyClient after save" do
-    episode = Episode.new(title: "Sample Episode", podcast: podcast)
+    episode = Episode.new(id: 1, title: "Sample Episode", podcast: podcast)
+    expected_payload = {
+      id: episode.id,
+      title: episode.title,
+      description: episode.description,
+      media_url: episode.audio_file,
+      podcast: {
+        id: episode.podcast.id,
+        title: episode.podcast.title,
+        description: episode.podcast.description,
+        cover_art: episode.podcast.cover_art
+      }
+    }.to_json
+
     expect(BunnyClient).to receive(:new).and_return(bunny_client = double)
-    expect(bunny_client).to receive(:publish)
+    expect(bunny_client).to receive(:publish).with(expected_payload)
 
     episode.save
   end

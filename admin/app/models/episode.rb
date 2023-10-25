@@ -9,10 +9,16 @@ class Episode < ApplicationRecord
 
   def publish_to_queue
     message = {
-      episode_id: id,
+      id: id,
       title: title,
-      podcast_id: podcast_id,
-      media_url: audio_file
+      description: description,
+      media_url: audio_file,
+      podcast: {
+        id: podcast.id,
+        title: podcast.title,
+        description: podcast.description,
+        cover_art: podcast.cover_art
+      }
     }.to_json
 
     BunnyClient.new.publish(message)
