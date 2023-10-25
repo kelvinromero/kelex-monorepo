@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EpisodesController < ApplicationController
-  before_action :set_podcast, only: %i[index show edit new create]
+  before_action :set_podcast, only: %i[index show edit update new create]
   before_action :set_episode, only: %i[show edit update destroy]
 
   # GET /episodes or /episodes.json
@@ -41,7 +41,7 @@ class EpisodesController < ApplicationController
   def update
     respond_to do |format|
       if @episode.update(episode_params)
-        format.html { redirect_to episode_url(@episode), notice: 'Episode was successfully updated.' }
+        format.html { redirect_to user_podcast_episode_url(@user, @podcast, @episode), notice: 'Episode was successfully updated.' }
         format.json { render :show, status: :ok, location: @episode }
       else
         format.html { render :edit, status: :unprocessable_entity }
