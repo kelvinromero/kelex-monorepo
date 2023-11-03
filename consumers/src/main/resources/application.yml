@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: usage_message
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+
+logging:
+  level:
+    org: ERROR
+
+episodes:
+  client:
+    duration: 10000
