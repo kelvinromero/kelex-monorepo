@@ -1,24 +1,36 @@
-# README
+# Kelex Admin
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Rails Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop-rails)
+[![Rails Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rails.rubystyle.guide)
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+### Prerequisites
 
-* System dependencies
+- Docker
+- Docker Compose
 
-* Configuration
+### Installing
 
-* Database creation
+Simply run the following command to build the docker image and start the container.
+```sh
+make setup
+```
 
-* Database initialization
+### Running the tests
 
-* How to run the test suite
+```sh
+make test
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Running the linter
 
-* Deployment instructions
+```sh
+make lint
+```
 
-* ...
+### Running the server
+
+```sh
+make up
+```

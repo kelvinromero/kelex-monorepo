@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include ActiveModel::Validations
 
@@ -8,7 +10,7 @@ class User < ApplicationRecord
 
   # Validations
   validates :email, presence: true, uniqueness: true
-  validates :password, password_strength: {use_dictionary: true, min_word_length: 6}, on: :create
+  validates :password, password_strength: { use_dictionary: true, min_word_length: 6 }, on: :create
 
   # Relationships
   has_many :podcasts, dependent: :destroy
