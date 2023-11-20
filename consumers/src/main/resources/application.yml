@@ -12,5 +12,10 @@ logging:
     org: ERROR
 
 episodes:
+  queue:
+    name: episodes
+    durable: true
+    exclusive: false
+    auto-delete: false
   client:
     duration: 10000

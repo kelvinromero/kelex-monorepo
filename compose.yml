@@ -1,11 +1,39 @@
 version: "3.8"
 
 services:
+  db:
+    image: postgres
+    volumes:
+      - ./admin/tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+
+  web:
+    build: ./admin
+    tty: true
+    command: bash -c "./bin/dev"
+    volumes:
+      - ./admin:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
   es:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
     container_name: es
     volumes:
-      - ./esdata1:/usr/share/elasticsearch/data
+      - ./.esdata:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
       - cluster.name=docker-cluster
@@ -30,3 +58,4 @@ services:
       - 5601:5601
     depends_on:
       - es
+
