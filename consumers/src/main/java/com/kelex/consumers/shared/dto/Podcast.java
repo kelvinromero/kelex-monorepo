@@ -1,4 +1,4 @@
-package com.kelex.consumers.dto;
+package com.kelex.consumers.shared.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,26 +13,24 @@ import java.util.LinkedHashMap;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "episodes", createIndex = true)
-public class Episode {
+@Document(indexName = "podcasts", createIndex = true)
+public class Podcast {
     @Id
-    private String id;
+    private int id;
     @Field(type = FieldType.Text)
     private String title;
     @Field(type = FieldType.Text)
     private String description;
     @Field(type = FieldType.Text)
-    private String media_url;
-    @Field(type = FieldType.Nested, includeInParent = true)
-    private Podcast podcast;
+    private String cover_art;
 
-    public static Episode from(LinkedHashMap payload) {
-        return new Episode(
-                (int) payload.get("id") + "",
+    public static Podcast from(LinkedHashMap payload) {
+        return new Podcast(
+                (int) payload.get("id"),
                 (String) payload.get("title"),
                 (String) payload.get("description"),
-                (String) payload.get("media_url"),
-                Podcast.from((LinkedHashMap) payload.get("podcast"))
+                (String) payload.get("cover_art")
         );
     }
+
 }

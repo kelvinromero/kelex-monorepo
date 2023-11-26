@@ -48,8 +48,8 @@ services:
     networks:
       - clickhouse-setup_default
   
-  consumers:
-    container_name: kelex-consumers
+  episodes-consumer:
+    container_name: kelex-episode-consumer
     build:
       context: ./consumers
       dockerfile: Dockerfile
@@ -59,9 +59,25 @@ services:
       - OTEL_EXPORTER=otlp
       - OTEL_SERVICE_NAME=kelex-consumers
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://signoz-otel-collector:4317
-      - OTEL_RESOURCE_ATTRIBUTES='host.name=kelex-consumers,os.type=linux,service.name=kelex-consumers'
-    ports:
-      - "8080:8080"
+      - OTEL_RESOURCE_ATTRIBUTES='host.name=kelex-episodes-consumer,os.type=linux,service.name=kelex-episodes-consumer'
+      - SPRING_PROFILES_ACTIVE=episodes,receiver
+    depends_on:
+      - es
+      - rabbitmq
+
+  podcasts-consumer:
+    container_name: kelex-podcast-consumer
+    build:
+      context: ./consumers
+      dockerfile: Dockerfile
+    networks:
+      - clickhouse-setup_default
+    environment:
+      - OTEL_EXPORTER=otlp
+      - OTEL_SERVICE_NAME=kelex-consumers
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://signoz-otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES='host.name=kelex-podcasts-consumer,os.type=linux,service.name=kelex-podcasts-consumer'
+      - SPRING_PROFILES_ACTIVE=podcasts,receiver
     depends_on:
       - es
       - rabbitmq

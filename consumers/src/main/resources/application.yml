@@ -19,3 +19,12 @@ episodes:
     auto-delete: false
   client:
     duration: 10000
+
+podcasts:
+  queue:
+    name: podcast.published
+    durable: true
+    exclusive: false
+    auto-delete: false
+  client:
+    duration: 10000

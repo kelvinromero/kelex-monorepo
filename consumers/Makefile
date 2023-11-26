@@ -1,19 +1,28 @@
-target := consumers
 dc := docker-compose
 dcr := docker-compose run --rm
 
+# Docker tasks
+.PHONY: docker-deploy-all
+docker-deploy-all: clean build
+	$(dc) up --build episodes-consumer podcasts-consumer
+
+.PHONY: docker-deploy
+docker-deploy: clean build docker-build
+	$(dc) up $(target)
+
 .PHONY: docker-up
-docker-up: clean assemble docker-build
+docker-up:
 	$(dc) up $(target)
 
 .PHONY: docker-build
-docker-build:
+docker-build: clean assemble
 	$(dc) build $(target)
 
 .PHONY: docker-bash
 docker-bash:
 	$(dc) exec $(target) sh
 
+# Gradle tasks
 .PHONY: clean
 clean:
 	./gradlew clean
@@ -27,6 +36,3 @@ assemble:
 build:
 	./gradlew build
 
-.PHONY: run
-run:
-	./gradlew bootRun --args='--spring.profiles.active=episodes,receiver'
