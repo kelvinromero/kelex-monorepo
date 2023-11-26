@@ -1,30 +1,44 @@
 dc := docker-compose
-run := ${dc} run --rm
 
-up:
-	${dc} up
 
-upd:
-	echo "Starting containers... web admin, rabbitmq, es, kibana"
-	${dc} up -d
-	echo "Waiting for ElasticSearch to start..."
+.PHONY: docker-build-and-up-all
+docker-build-and-up-all: build docker-up
+
+.PHONY: docker-up
+docker-up:
+	echo "Starting elastic search"
+	${dc} up -d es rabbitmq
+	echo "Starting admin"
+	${dc} up -d admin
+	echo "Starting bff"
 	sleep 10
-	echo "Starting BFF..."
-	web-player-bff/gradlew bootRun -p web-player-bff > bff.log 2>&1 &
-	echo "Starting Consumers..."
-	consumers/gradlew bootRun -p consumers > consumers.log 2>&1 &
+	${dc} up -d bff
+	echo "Starting consumers"
+	${dc} up -d consumers
 
-down:
-	${dc} down
+.PHONY: build
+build: build-bff build-consumers build-admin
 
-build:
-	${dc} build
+.PHONY: build-admin
+build-admin:
+	$(dc) build admin
 
-bash-admin:
-	${run} admin bash
+.PHONE: build-bff
+build-bff:
+	web-player-bff/gradlew clean -p web-player-bff
+	web-player-bff/gradlew assemble -p web-player-bff
+	$(dc) build bff
 
-stop-all:
-	${dc} stop $(docker ps -a -q)
+.PHONE: build-consumers
+build-consumers:
+	consumers/gradlew clean -p consumers
+	consumers/gradlew assemble -p consumers
+	$(dc) build consumers
 
-tail -f:
-	tail -f bff.log consumers.log
+.PHONY: docker-down
+docker-down:
+	$(dc) down --remove-orphans
+
+.PHONY: ps
+ps:
+	docker ps -f name=kelex --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"

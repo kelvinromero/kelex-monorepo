@@ -38,3 +38,6 @@ setup:
 	make migrate
 	make seed
 	make up
+
+ps:
+	${dc} ps

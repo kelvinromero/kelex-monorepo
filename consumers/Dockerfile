@@ -10,4 +10,4 @@ ENV OTEL_LOGS_EXPORTER=otlp
 COPY ./build/libs/*SNAPSHOT.jar app.jar
 COPY ./lib/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 
-ENTRYPOINT ["java", "-javaagent:opentelemetry-javaagent.jar", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-javaagent:opentelemetry-javaagent.jar", "-jar", "app.jar", "--spring.profiles.active=episodes,receiver"]

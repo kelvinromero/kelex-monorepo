@@ -1,6 +1,7 @@
 target := bff
 dc := docker-compose
 dcr := docker-compose run --rm
+dce := docker-compose exec
 
 .PHONY: docker-up
 docker-up: clean assemble docker-build
@@ -12,7 +13,7 @@ docker-build:
 
 .PHONY: docker-bash
 docker-bash:
-	$(dcr) bff sh
+	$(dce) bff sh
 
 .PHONY: clean
 clean:

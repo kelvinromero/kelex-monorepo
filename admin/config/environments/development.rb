@@ -63,6 +63,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.hosts << 'web'
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -71,4 +73,19 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # OpenTelemetry configuration
+  config.logger = ::Logger.new(STDOUT)
+  config.log_level = :debug
+  config.logger.formatter = proc do |severity, time, progname, msg|
+    span_id = OpenTelemetry::Trace.current_span.context.hex_span_id
+    trace_id = OpenTelemetry::Trace.current_span.context.hex_trace_id
+    operation = if defined? OpenTelemetry::Trace.current_span.name
+                  OpenTelemetry::Trace.current_span.name
+                else
+                  'undefined'
+                end
+
+    "#{time}, #{severity}: #{msg} - trace_id=#{trace_id} - span_id=#{span_id} - operation=#{operation}\n"
+  end
 end

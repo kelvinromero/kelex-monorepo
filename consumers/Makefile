@@ -4,15 +4,15 @@ dcr := docker-compose run --rm
 
 .PHONY: docker-up
 docker-up: clean assemble docker-build
-	$(dc) up bff
+	$(dc) up $(target)
 
 .PHONY: docker-build
 docker-build:
-	$(dc) build bff
+	$(dc) build $(target)
 
 .PHONY: docker-bash
 docker-bash:
-	$(dcr) bff sh
+	$(dc) exec $(target) sh
 
 .PHONY: clean
 clean:
@@ -29,4 +29,4 @@ build:
 
 .PHONY: run
 run:
-	./gradlew bootRun
+	./gradlew bootRun --args='--spring.profiles.active=episodes,receiver'
