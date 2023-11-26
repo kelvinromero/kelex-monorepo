@@ -13,6 +13,7 @@ type Episode {
     title: String!
     description: String!
     mediaUrl: String!
+    transcript: String!
     podcast: Podcast!
 }
 

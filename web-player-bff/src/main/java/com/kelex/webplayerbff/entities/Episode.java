@@ -21,9 +21,11 @@ public class Episode {
     @Field(type = FieldType.Text)
     private String description;
     @Field(type = FieldType.Text)
-    private String media_url;
+    private String mediaUrl;
     @Field(type = FieldType.Nested, includeInParent = true)
     private Podcast podcast;
+    @Field(type = FieldType.Text)
+    private String transcript;
 
     @Override
     public String toString() {
