@@ -35,6 +35,10 @@ build-consumers:
 	consumers/gradlew assemble -p consumers
 	$(dc) build consumers
 
+.PHONY: docker-down
+docker-down:
+	$(dc) down --remove-orphans
+
 .PHONY: ps
 ps:
-	$(dc) ps
+	docker ps -f name=kelex --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
