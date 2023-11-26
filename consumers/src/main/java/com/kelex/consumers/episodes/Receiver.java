@@ -30,7 +30,12 @@ public class Receiver {
     }
 
     private void process(Episode episode) {
-        log.info("Received" + episode.toString());
-        repository.save(episode);
+        try {
+            log.info("Saving episode: " + episode);
+            repository.save(episode);
+            log.info("Episode saved: " + episode);
+        } catch (Exception e) {
+            log.error("Error saving episode: " + episode, e);
+        }
     }
 }
