@@ -23,7 +23,7 @@ public class Episode {
     private String description;
     @Field(type = FieldType.Text)
     private String media_url;
-    @Field(type = FieldType.Nested)
+    @Field(type = FieldType.Nested, includeInParent = true)
     private Podcast podcast;
 
     public static Episode from(LinkedHashMap payload) {
