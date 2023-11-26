@@ -5,6 +5,8 @@ dce := docker-compose exec
 
 .PHONY: docker-up
 docker-up: clean assemble docker-build
+	$(dc) up es -d
+	sleep 10
 	$(dc) up bff
 
 .PHONY: docker-build
