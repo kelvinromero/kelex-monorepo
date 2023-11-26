@@ -1,0 +1,25 @@
+.player-columns{
+    border: 2px #f6caec solid;
+    border-radius: 10px;
+    min-height: 150px;
+}
+
+.media-footer{
+    position: absolute;
+    bottom: 0;
+    min-height: 150px;
+    align-items: center;
+    width: 100%;
+    background-color: #D5B4FF;
+}
+
+.palavras{
+    border: 2px #ffff solid;
+    border-radius: 10px;
+}
+
+.palavras:hover{
+    background-color: #D5B4FF;
+    color: #3f0045;
+    cursor: pointer;
+}

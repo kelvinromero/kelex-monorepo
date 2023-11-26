@@ -2,7 +2,7 @@ spring:
   profiles:
     active: usage_message
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: admin
     password: admin
@@ -12,5 +12,10 @@ logging:
     org: ERROR
 
 episodes:
+  queue:
+    name: podcast.episode.published
+    durable: true
+    exclusive: false
+    auto-delete: false
   client:
     duration: 10000
