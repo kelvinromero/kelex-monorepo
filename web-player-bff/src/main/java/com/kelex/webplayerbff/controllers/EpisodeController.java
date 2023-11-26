@@ -1,4 +1,4 @@
-package com.kelex.webplayerbff;
+package com.kelex.webplayerbff.controllers;
 
 import com.kelex.webplayerbff.entities.Episode;
 import com.kelex.webplayerbff.repositories.EpisodeRepository;
