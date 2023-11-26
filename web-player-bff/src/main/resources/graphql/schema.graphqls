@@ -2,10 +2,23 @@ type Query {
     episodes: [Episode]
     episodesByTitle(title: String!): [Episode]
     findEpisodeByFuzzyTitle(title: String!): [Episode]
+    episodeById(id: ID!): Episode
+
+#    podcasts: [Podcast]
+#    podcastById(id: ID!): Podcast
 }
 
 type Episode {
     id: ID!
     title: String!
     description: String!
+    mediaUrl: String!
+    podcast: Podcast!
+}
+
+type Podcast {
+    id: ID!
+    title: String!
+    description: String!
+#    episodes: [Episode]
 }

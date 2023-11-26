@@ -3,8 +3,12 @@ dc := docker-compose
 dcr := docker-compose run --rm
 dce := docker-compose exec
 
-.PHONY: docker-up
-docker-up: clean assemble docker-build
+.PHONY: docker-deploy
+docker-deploy: clean build docker-build
+	$(dc) up bff
+
+.PHONY: docker-build-up
+docker-build-up: clean assemble docker-build
 	$(dc) up es -d
 	sleep 10
 	$(dc) up bff

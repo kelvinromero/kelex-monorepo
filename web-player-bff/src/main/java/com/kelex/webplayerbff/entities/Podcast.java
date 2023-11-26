@@ -12,22 +12,20 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "episodes", createIndex = true)
-public class Episode {
+@Document(indexName = "podcasts", createIndex = true)
+public class Podcast {
     @Id
-    private String id;
+    private int id;
     @Field(type = FieldType.Text)
     private String title;
     @Field(type = FieldType.Text)
     private String description;
     @Field(type = FieldType.Text)
-    private String media_url;
-    @Field(type = FieldType.Nested, includeInParent = true)
-    private Podcast podcast;
+    private String cover_art;
 
     @Override
     public String toString() {
-        return "Episode{" +
+        return "Podcast{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

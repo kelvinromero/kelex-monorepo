@@ -40,5 +40,12 @@ public class EpisodeController
         log.info("findEpisodeByFuzzyTitle");
         return episodeRepository.findByFuzzyTitle("*" + title + "*");
     }
+
+    @QueryMapping
+    Episode episodeById(@Argument String id)
+    {
+        log.info("episodeById");
+        return episodeRepository.findById(id).orElse(null);
+    }
 }
 
