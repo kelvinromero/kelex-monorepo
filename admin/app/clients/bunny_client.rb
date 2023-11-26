@@ -14,6 +14,6 @@ class BunnyClient
   private
 
   def queue
-    @queue ||= @channel.queue('podcast.episode.published')
+    @queue ||= @channel.queue('podcast.episode.published', durable: true)
   end
 end

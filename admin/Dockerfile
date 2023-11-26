@@ -1,6 +1,6 @@
 FROM ruby:3.2.2
 
-RUN apt-get update -qq && apt-get install -y postgresql-client
+RUN apt-get update -qq && apt-get install -y postgresql-client iputils-ping
 
 RUN curl -sL https://deb.nodesource.com/setup_19.x | bash -\
   && apt-get update -qq && apt-get install -qq --no-install-recommends \
