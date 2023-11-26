@@ -38,6 +38,23 @@ services:
     depends_on:
       - es
 
+  cortex:
+    container_name: kelex-cortex
+    build:
+      context: ./cortex
+      dockerfile: Dockerfile
+    networks:
+      - clickhouse-setup_default
+    environment:
+      - OTEL_EXPORTER=otlp
+      - OTEL_SERVICE_NAME=kelex-cortex
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://signoz-otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES='host.name=kelex-cortex,os.type=linux,service.name=kelex-cortex'
+    volumes:
+      - ./cortex:/src
+    ports:
+      - "5000:80"
+
   db:
     container_name: kelex-admin-db
     image: postgres
@@ -47,7 +64,7 @@ services:
       POSTGRES_PASSWORD: password
     networks:
       - clickhouse-setup_default
-  
+
   episodes-consumer:
     container_name: kelex-episode-consumer
     build:
