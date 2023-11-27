@@ -6,8 +6,8 @@ docker-build-and-up-all: build docker-up
 
 .PHONY: docker-up
 docker-up:
-	echo "Starting elastic search"
-	${dc} up -d es rabbitmq
+	echo "Starting databases"
+	${dc} up -d es rabbitmq db
 	echo "Starting admin"
 	${dc} up -d admin
 	echo "Starting bff"
