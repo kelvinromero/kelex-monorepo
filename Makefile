@@ -14,7 +14,10 @@ docker-up:
 	sleep 10
 	${dc} up -d bff
 	echo "Starting consumers"
-	${dc} up -d consumers
+	${dc} up -d episodes-consumer
+	${dc} up -d podcasts-consumer
+	echo "Starting cortex"
+	${dc} up -d cortex
 
 .PHONY: build
 build: build-bff build-consumers build-admin
