@@ -7,7 +7,7 @@ docker-build-and-up-all: build docker-up
 .PHONY: docker-up
 docker-up:
 	echo "Starting databases"
-	${dc} up -d es rabbitmq db
+	${dc} up -d es rabbitmq db redis
 	echo "Starting admin"
 	${dc} up -d admin
 	echo "Starting bff"

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kelex.webplayerbff.controllers.EpisodeController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kelex.webplayerbff.entities.Transcript;
@@ -23,6 +24,7 @@ public class TranscriptService {
         this.webClient = WebClient.builder().baseUrl("http://cortex").build();
     }
 
+    @Cacheable(cacheNames = "transcripts")
     public Transcript getTranscript(String video_id) {
         String jsonResponse = webClient.get()
                 .uri("/transcript?video_id=" + video_id)

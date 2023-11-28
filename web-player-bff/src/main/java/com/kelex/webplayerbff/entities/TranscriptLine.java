@@ -6,10 +6,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TranscriptLine {
+public class TranscriptLine implements Serializable {
     @Field(type = FieldType.Text)
     private String text;
     @Field(type = FieldType.Text)
@@ -17,3 +19,4 @@ public class TranscriptLine {
     @Field(type = FieldType.Text)
     private String duration;
 }
+public class TranscriptLine implements Serializable {

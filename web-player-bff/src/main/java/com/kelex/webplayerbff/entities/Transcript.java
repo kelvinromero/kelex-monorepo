@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transcript {
+public class Transcript implements Serializable {
     @Field(type = FieldType.Nested)
     private ArrayList<TranscriptLine> lines;
 
