@@ -1,13 +1,14 @@
 package com.kelex.webplayerbff.controllers;
 
 import com.kelex.webplayerbff.entities.Episode;
+import com.kelex.webplayerbff.entities.Transcript;
 import com.kelex.webplayerbff.repositories.EpisodeRepository;
+import com.kelex.webplayerbff.services.TranscriptService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -17,9 +18,10 @@ public class EpisodeController
     private final EpisodeRepository episodeRepository;
     private static final Logger log = LoggerFactory.getLogger(EpisodeController.class);
 
-    private final  WebClient webClient = WebClient.builder().baseUrl("http://cortex").build();
-    public EpisodeController(EpisodeRepository episodeRepository) {
+    private final TranscriptService transcriptService;
+    public EpisodeController(EpisodeRepository episodeRepository, TranscriptService transcriptService) {
         this.episodeRepository = episodeRepository;
+        this.transcriptService = transcriptService;
     }
 
     @QueryMapping
@@ -51,17 +53,9 @@ public class EpisodeController
 
         try {
             String video_id = episode.getMediaUrl().split("v=")[1];
-
             log.info("getTranscript video_id: " + video_id);
-            String transcript = this.webClient.get()
-                    .uri("/transcript?video_id=" + video_id)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-
-            log.info("transcript: " + transcript);
-
-            episode.setTranscript(transcript);
+            transcriptService.getTranscript(video_id);
+            episode.setTranscript(transcriptService.getTranscript(video_id));
         } catch (Exception e) {
             log.error("Error getting transcript: " + e);
         }

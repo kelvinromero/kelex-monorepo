@@ -3,3 +3,6 @@ spring:
     graphiql:
       enabled: true
 
+kelex:
+  cortex:
+    url: http://cortex

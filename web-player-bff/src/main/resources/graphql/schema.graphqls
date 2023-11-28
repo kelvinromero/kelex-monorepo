@@ -13,7 +13,7 @@ type Episode {
     title: String!
     description: String!
     mediaUrl: String!
-    transcript: String!
+    transcript: Transcript!
     podcast: Podcast!
 }
 
@@ -22,4 +22,14 @@ type Podcast {
     title: String!
     description: String!
 #    episodes: [Episode]
+}
+
+type Transcript {
+    lines: [TranscriptLine]
+}
+
+type TranscriptLine {
+    text: String!
+    start: String!
+    duration: String!
 }
