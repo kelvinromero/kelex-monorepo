@@ -9,7 +9,11 @@ import { MaterialModule } from './shared/material/material.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EpisodeModule } from './episode/episode.module';
 import { PlayerModule } from './player/player.module';
-
+import { GraphQLModule } from './graphql.module';
+import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
+import { GraphqlService } from './shared/services/episodes.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,9 +28,10 @@ import { PlayerModule } from './player/player.module';
     HttpClientModule,
     MaterialModule,
     EpisodeModule,
-    PlayerModule
+    PlayerModule,
+    GraphQLModule
   ],
-  providers: [],
+  providers: [GraphqlService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,11 @@
+query GetEpisodes {
+  episodes {
+    id
+    title
+    description
+    podcast {
+      id
+      title
+    }
+  }
+}
