@@ -36,7 +36,8 @@ build-bff:
 build-consumers:
 	consumers/gradlew clean -p consumers
 	consumers/gradlew assemble -p consumers
-	$(dc) build consumers
+	$(dc) build episodes-consumer
+	$(dc) build podcasts-consumer
 
 .PHONY: docker-down
 docker-down:

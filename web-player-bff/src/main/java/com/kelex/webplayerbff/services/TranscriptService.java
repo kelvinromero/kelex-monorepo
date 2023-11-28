@@ -20,7 +20,7 @@ public class TranscriptService {
     private static final Logger log = LoggerFactory.getLogger(EpisodeController.class);
 
     public TranscriptService() {
-        this.webClient = WebClient.builder().baseUrl("http://localhost:5000").build();
+        this.webClient = WebClient.builder().baseUrl("http://cortex").build();
     }
 
     public Transcript getTranscript(String video_id) {
