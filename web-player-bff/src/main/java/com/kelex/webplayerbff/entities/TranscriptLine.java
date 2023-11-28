@@ -19,4 +19,3 @@ public class TranscriptLine implements Serializable {
     @Field(type = FieldType.Text)
     private String duration;
 }
-public class TranscriptLine implements Serializable {
