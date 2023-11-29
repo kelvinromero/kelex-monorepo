@@ -3,12 +3,14 @@ package com.kelex.webplayerbff.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kelex.webplayerbff.controllers.EpisodeController;
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.kelex.webplayerbff.entities.Transcript;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,8 +26,9 @@ public class TranscriptService {
         this.webClient = WebClient.builder().baseUrl("http://cortex").build();
     }
 
+    @WithSpan
     @Cacheable(cacheNames = "transcripts")
-    public Transcript getTranscript(String video_id) {
+    public Transcript getTranscript(@SpanAttribute("video_id") String video_id) {
         String jsonResponse = webClient.get()
                 .uri("/transcript?video_id=" + video_id)
                 .retrieve()
@@ -43,6 +46,7 @@ public class TranscriptService {
          return transcript;
     }
 
+    @WithSpan
     private ArrayList<LinkedHashMap> getDeserializedLines(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {

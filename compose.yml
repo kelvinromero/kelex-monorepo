@@ -30,7 +30,11 @@ services:
       - clickhouse-setup_default
     environment:
       - OTEL_EXPORTER=otlp
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
       - OTEL_SERVICE_NAME=kelex-bff
+      - OTEL_INSTRUMENTATION_COMMON_PEER_SERVICE_MAPPING='{"cortex/transcript":"kelex-transcript-service","redis":"kelex-redis","es":"kelex-elasticsearch"}'
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://signoz-otel-collector:4317
       - OTEL_RESOURCE_ATTRIBUTES='host.name=kelex-bff,os.type=linux,service.name=kelex-bff'
     ports:
