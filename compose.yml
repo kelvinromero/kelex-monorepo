@@ -52,6 +52,11 @@ services:
       - clickhouse-setup_default
     environment:
       - OTEL_SERVICE_NAME=kelex-cortex
+      - OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://signoz-otel-collector:4317
       - OTEL_RESOURCE_ATTRIBUTES='host.name=kelex-cortex,os.type=linux,service.name=kelex-cortex'
     volumes:
