@@ -1,8 +1,8 @@
 dc := docker-compose
 
 
-.PHONY: docker-build-and-up-all
-docker-build-and-up-all: build docker-up
+.PHONY: docker-deploy
+docker-deploy: build docker-up
 
 .PHONY: docker-up
 docker-up:
