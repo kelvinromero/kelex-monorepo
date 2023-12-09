@@ -2,9 +2,9 @@ import logging
 from fastapi import HTTPException
 from fastapi import FastAPI
 
-from app.adapters.repositories.TranscriptRepository import TranscriptRepository
+from app.adapters.repositories.transcript_line_repository import TranscriptLinesRepository
 from app.domain.models.question import Question
-from app.domain.models.transcript import Transcript
+from app.domain.models.transcript_line import TranscriptLine
 from app.adapters.services.transcript_service import TranscriptService
 
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ async def read_root():
     return {"Hello": "World"}
 
 @app.post("/episode/{episode_id}/generate_transcript/{video_id}")
-async def generate_transcript(episode_id: str, video_id: str) -> Transcript:
+async def generate_transcript(episode_id: str, video_id: str):
     try:
         return TranscriptService.generate(episode_id, video_id)
     except HTTPException as e:
@@ -25,9 +25,9 @@ async def generate_transcript(episode_id: str, video_id: str) -> Transcript:
 
 
 @app.get("/episode/{episode_id}/transcript")
-async def get_transcript(episode_id: str) -> Transcript:
+async def get_transcript(episode_id: str) -> [TranscriptLine]:
     try:
-        return TranscriptRepository().find(episode_id)
+        return TranscriptLinesRepository().find_by_episode_id(episode_id)
     except HTTPException as e:
         return e
 

@@ -4,25 +4,8 @@ DEFAULT_INDEX = 'transcripts'
 DEFAULT_SCROLL_TIME = '2m'
 DEFAULT_SEARCH_SIZE = 10
 
-def search_query(episode_id, question):
-    return {
-        "query": {
-            "bool": {
-                "must": [
-                    {
-                        "match": {
-                            "episode_id": episode_id
-                        }
-                    },
-                    {
-                        "match": {
-                            "text": question
-                        }
-                    }
-                ]
-            }
-        }
-    }
+def search_query_lines(episode_id, question):
+    return {}
 
 
 class ElasticTranscriptRetriever:
@@ -30,7 +13,7 @@ class ElasticTranscriptRetriever:
         self.es = Elasticsearch([{'host': es_host, 'port': es_port}])
 
     def search_transcript(self, episode_id, question):
-        query = search_query(episode_id, question)
+        query = search_query_lines(episode_id, question)
 
         res = self.es.search(
             index=DEFAULT_INDEX,
