@@ -3,6 +3,8 @@ from fastapi import HTTPException
 from fastapi import FastAPI
 
 from app.adapters.repositories.transcript_line_repository import TranscriptLinesRepository
+from app.adapters.services.answer_service import AnswerService
+from app.domain.models.answer import Answer
 from app.domain.models.question import Question
 from app.domain.models.transcript_line import TranscriptLine
 from app.adapters.services.transcript_service import TranscriptService
@@ -32,5 +34,5 @@ async def get_transcript(episode_id: str) -> [TranscriptLine]:
         return e
 
 @app.post("/episode/{episode_id}/question")
-async def get_answer(episode_id: str, question: Question) -> [TranscriptLine]:
-    return TranscriptLinesRepository().retrieve_lines(episode_id=episode_id, text=question.question)
+async def get_answer(episode_id: str, question: Question) -> Answer:
+    return AnswerService().get_answer(episode_id, question)

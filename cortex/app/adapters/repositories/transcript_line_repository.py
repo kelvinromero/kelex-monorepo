@@ -48,9 +48,10 @@ class TranscriptLinesRepository:
             body=transcript.dict()
         )
 
-    def find_by_episode_id(self, episode_id: str) -> [TranscriptLine]:
+    def find_by_episode_id(self, episode_id: str, size=100) -> [TranscriptLine]:
         res = self.es.search(
             index=DEFAULT_INDEX,
+            size=size,
             body={
                 "query": {
                     "match": {
