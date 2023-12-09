@@ -10,14 +10,14 @@ docker-up:
 	${dc} up -d es rabbitmq db redis
 	echo "Starting admin"
 	${dc} up -d admin
+	echo "Starting cortex"
+	${dc} up -d cortex
 	echo "Starting bff"
 	sleep 10
 	${dc} up -d bff
 	echo "Starting consumers"
 	${dc} up -d episodes-consumer
 	${dc} up -d podcasts-consumer
-	echo "Starting cortex"
-	${dc} up -d cortex
 
 .PHONY: build
 build: build-bff build-consumers build-admin
