@@ -1,6 +1,6 @@
 from elasticsearch import Elasticsearch
 
-from app.models.transcript import Transcript
+from app.domain.models.transcript import Transcript
 
 def index_mapping():
     return {

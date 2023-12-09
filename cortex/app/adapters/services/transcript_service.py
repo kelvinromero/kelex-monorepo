@@ -1,7 +1,7 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from fastapi import HTTPException
 
-from app.models.transcript import Transcript
+from app.domain.models.transcript import Transcript
 from app.adapters.repositories.TranscriptRepository import TranscriptRepository
 
 class TranscriptService:

@@ -3,9 +3,9 @@ from fastapi import HTTPException
 from fastapi import FastAPI
 
 from app.adapters.repositories.TranscriptRepository import TranscriptRepository
-from app.models.question import Question
-from app.models.transcript import Transcript
-from app.services.transcript_service import TranscriptService
+from app.domain.models.question import Question
+from app.domain.models.transcript import Transcript
+from app.adapters.services.transcript_service import TranscriptService
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

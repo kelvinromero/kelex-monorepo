@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel
 
-from app.models.transcript_lines import TranscriptLines
+from app.domain.models.transcript_lines import TranscriptLines
 
 
 class Transcript(BaseModel):
