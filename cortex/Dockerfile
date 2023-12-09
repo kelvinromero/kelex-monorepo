@@ -25,7 +25,8 @@ COPY ./app /src/app
 
 RUN opentelemetry-bootstrap --action=install
 
-#CMD ["opentelemetry-instrument", "uvicorn", "app.main:app", "--reload",  "--host", "0.0.0.0", "--port", "80"]
+ENTRYPOINT [".build/dev/docker/entrypoint.sh"]
+
 CMD ["opentelemetry-instrument", "uvicorn", "app.main:app",  "--host", "0.0.0.0", "--port", "80"]
 
 # If running behind a proxy like Nginx or Traefik add --proxy-headers
