@@ -1,9 +1,11 @@
-from youtube_transcript_api import YouTubeTranscriptApi
 import logging
-from fastapi import HTTPException, status
-
+from fastapi import HTTPException
 from fastapi import FastAPI
 
+from app.adapters.repositories.TranscriptRepository import TranscriptRepository
+from app.models.question import Question
+from app.models.transcript import Transcript
+from app.services.transcript_service import TranscriptService
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -14,16 +16,21 @@ app = FastAPI()
 async def read_root():
     return {"Hello": "World"}
 
-
-@app.get("/ping")
-async def health_check():
-    return "pong"
-
-@app.get("/transcript")
-async def get_transcript(video_id: str):
+@app.post("/episode/{episode_id}/generate_transcript/{video_id}")
+async def generate_transcript(episode_id: str, video_id: str) -> Transcript:
     try:
-        logger.info(f"Getting transcript for video {video_id}")
-        transcript = YouTubeTranscriptApi.get_transcript(video_id)
-    except Exception as e:
-        raise HTTPException(status_code=502, detail="Video not found")
-    return { "transcript": transcript }
+        return TranscriptService.generate(episode_id, video_id)
+    except HTTPException as e:
+        return e
+
+
+@app.get("/episode/{episode_id}/transcript")
+async def get_transcript(episode_id: str) -> Transcript:
+    try:
+        return TranscriptRepository().find(episode_id)
+    except HTTPException as e:
+        return e
+
+@app.post("/episode/{episode_id}/question")
+async def get_answer(episode_id: str, question: Question):
+    return ""
