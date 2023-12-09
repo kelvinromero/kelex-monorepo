@@ -32,5 +32,5 @@ async def get_transcript(episode_id: str) -> [TranscriptLine]:
         return e
 
 @app.post("/episode/{episode_id}/question")
-async def get_answer(episode_id: str, question: Question):
-    return ""
+async def get_answer(episode_id: str, question: Question) -> [TranscriptLine]:
+    return TranscriptLinesRepository().retrieve_lines(episode_id=episode_id, text=question.question)

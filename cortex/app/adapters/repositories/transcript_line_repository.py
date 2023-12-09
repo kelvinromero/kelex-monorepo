@@ -16,6 +16,18 @@ def index_mapping():
         }
     }
 
+def retrieve_lines_query(episode_id: str, text: str):
+    return {
+        "query": {
+            "bool": {
+                "must": [
+                    {"match": {"episode_id": episode_id}},
+                    {"fuzzy": {"text": text}}
+                ]
+            }
+        }
+    }
+
 class TranscriptLinesRepository:
     def __init__(self, es_host='es', es_port=9200):
         self.es = Elasticsearch(
@@ -37,7 +49,6 @@ class TranscriptLinesRepository:
         )
 
     def find_by_episode_id(self, episode_id: str) -> [TranscriptLine]:
-        self.setup_index()
         res = self.es.search(
             index=DEFAULT_INDEX,
             body={
@@ -48,4 +59,12 @@ class TranscriptLinesRepository:
                 }
             }
         )
+        return [TranscriptLine(**hit['_source']) for hit in res['hits']['hits']]
+
+    def retrieve_lines(self, episode_id: str, text: str) -> [TranscriptLine]:
+        res = self.es.search(
+            index=DEFAULT_INDEX,
+            body=retrieve_lines_query(episode_id, text),
+        )
+
         return [TranscriptLine(**hit['_source']) for hit in res['hits']['hits']]
