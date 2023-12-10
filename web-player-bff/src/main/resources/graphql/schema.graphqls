@@ -33,3 +33,12 @@ type TranscriptLine {
     start: String!
     duration: String!
 }
+
+type Message {
+    content: String!
+    role: String!
+}
+
+type Mutation {
+    chatAboutEpisode(episodeId: ID!, message: String!): Message!
+}

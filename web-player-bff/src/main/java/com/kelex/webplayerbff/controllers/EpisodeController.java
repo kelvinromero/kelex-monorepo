@@ -1,11 +1,14 @@
 package com.kelex.webplayerbff.controllers;
 
 import com.kelex.webplayerbff.entities.Episode;
+import com.kelex.webplayerbff.entities.Message;
 import com.kelex.webplayerbff.entities.Transcript;
 import com.kelex.webplayerbff.repositories.EpisodeRepository;
+import com.kelex.webplayerbff.services.ChatAboutEpisodeService;
 import com.kelex.webplayerbff.services.TranscriptService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +22,14 @@ public class EpisodeController
     private static final Logger log = LoggerFactory.getLogger(EpisodeController.class);
 
     private final TranscriptService transcriptService;
-    public EpisodeController(EpisodeRepository episodeRepository, TranscriptService transcriptService) {
+    private final ChatAboutEpisodeService chatService;
+    public EpisodeController(EpisodeRepository episodeRepository,
+                             TranscriptService transcriptService,
+                             ChatAboutEpisodeService chatService
+    ) {
         this.episodeRepository = episodeRepository;
         this.transcriptService = transcriptService;
+        this.chatService = chatService;
     }
 
     @QueryMapping
@@ -61,6 +69,15 @@ public class EpisodeController
         }
 
         return episode;
+    }
+
+    @SchemaMapping(typeName = "Mutation", field = "chatAboutEpisode")
+    public Message chatAboutEpisode(
+            @Argument String episodeId,
+            @Argument String message
+    ) {
+
+        return this.chatService.sendMessage(episodeId, message);
     }
 }
 
