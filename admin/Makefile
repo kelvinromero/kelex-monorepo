@@ -1,6 +1,6 @@
 dc := docker-compose
-svrun := run web
-run := ${dc} ${svrun}
+target := admin
+run := ${dc} run --rm ${target}
 
 up:
 	${dc} up
@@ -12,7 +12,7 @@ down:
 	${dc} down
 
 build:
-	${dc} build
+	${dc} build ${target}
 
 bundle:
 	${run} bundle install

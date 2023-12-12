@@ -75,7 +75,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # OpenTelemetry configuration
-  config.logger = ::Logger.new(STDOUT)
+  config.logger = ActiveSupport::Logger.new(STDOUT)
   config.log_level = :debug
   config.logger.formatter = proc do |severity, time, progname, msg|
     span_id = OpenTelemetry::Trace.current_span.context.hex_span_id
