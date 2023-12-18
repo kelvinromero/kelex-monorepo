@@ -6,13 +6,16 @@ import com.kelex.webplayerbff.entities.Transcript;
 import com.kelex.webplayerbff.repositories.EpisodeRepository;
 import com.kelex.webplayerbff.services.ChatAboutEpisodeService;
 import com.kelex.webplayerbff.services.TranscriptService;
+import com.kelex.webplayerbff.services.WordDefinitionService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,15 +26,19 @@ public class EpisodeController
 
     private final TranscriptService transcriptService;
     private final ChatAboutEpisodeService chatService;
+    private final WordDefinitionService wordDefinitionService;
     public EpisodeController(EpisodeRepository episodeRepository,
                              TranscriptService transcriptService,
-                             ChatAboutEpisodeService chatService
+                             ChatAboutEpisodeService chatService,
+                                WordDefinitionService wordDefinitionService
     ) {
         this.episodeRepository = episodeRepository;
         this.transcriptService = transcriptService;
         this.chatService = chatService;
+        this.wordDefinitionService = wordDefinitionService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @QueryMapping
     List<Episode> episodes()
     {
@@ -78,6 +85,11 @@ public class EpisodeController
     ) {
 
         return this.chatService.sendMessage(episodeId, message);
+    }
+
+    @QueryMapping
+    ArrayList<String> getWordDefinition(@Argument String word) {
+        return this.wordDefinitionService.getWordDefinition(word);
     }
 }
 
