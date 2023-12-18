@@ -9,6 +9,7 @@ import { MaterialModule } from './shared/material/material.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EpisodeModule } from './episode/episode.module';
 import { PlayerModule } from './player/player.module';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PlayerModule } from './player/player.module';
     HttpClientModule,
     MaterialModule,
     EpisodeModule,
-    PlayerModule
+    PlayerModule,
+    GraphQLModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

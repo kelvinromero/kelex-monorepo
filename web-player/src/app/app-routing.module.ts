@@ -5,10 +5,10 @@ import { ListEpisodeComponent } from './episode/list-episode/list-episode.compon
 
 const routes: Routes = [
   {
-    path: 'player',
+    path: 'player/episode',
     children: [
       {
-        path: '',
+        path: ':episode_id',
         component: ViewPlayerComponent,
       },
     ]
