@@ -11,9 +11,10 @@ import { Apollo, gql } from 'apollo-angular';
 })
 export class ViewPlayerComponent implements OnInit {
   @ViewChild('youtubeVideo') youtubeVideo: ElementRef | undefined;
-  @ViewChild('player') child_component!: YouTubePlayer;
+  @ViewChild('player') player!: YouTubePlayer;
 
   episode: any;
+  transcript_line: string[] = [];
   currentTime: number = 0;
   apiLoaded = false;
   currentVid = "_f7AkEdmqpI"
@@ -32,10 +33,26 @@ export class ViewPlayerComponent implements OnInit {
     }
   }
 
- 
-  someMethod(){
-    this.child_component.getCurrentTime(); // Or any public method
-  } 
+
+  onPlayerStateChange(event?: any) {
+
+    if (event.data === YT.PlayerState.PLAYING) {
+      setInterval(() => {
+        const currentTime = this.player.getCurrentTime();
+        this.updateTranscription(currentTime);
+      }, 1000); // Update every second (adjust as needed)
+    }
+    // Handle other player state changes if necessary
+  }
+
+  updateTranscription(currentTime: number) {
+    const currentLine = this.episode.transcript.lines.find((line: any) => parseFloat(line.start) <= currentTime && parseFloat(line.start) + parseFloat(line.duration) >= currentTime);
+    if (currentLine) {
+      this.transcript_line = currentLine.text.split(" "); // You'd update your UI here
+    } else {
+      this.transcript_line = []
+    }
+  }
 
   searchEpisode() {
     this.apollo.watchQuery({
@@ -55,7 +72,7 @@ export class ViewPlayerComponent implements OnInit {
               lines {
                 text
                 start
-
+                duration
               }
             }
           }
@@ -66,7 +83,6 @@ export class ViewPlayerComponent implements OnInit {
       }
     })
       .valueChanges.subscribe((result: { data: any; }) => {
-        console.log(result.data['episodeById']);
         this.episode = result.data['episodeById'];
       });
   }
