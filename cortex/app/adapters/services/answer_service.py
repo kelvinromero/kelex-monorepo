@@ -10,10 +10,10 @@ class ChatAboutEpisodeService:
     def __init__(self):
         self.repository = TranscriptLinesRepository()
         self.llm = ChatOpenAI(temperature=0)
-        self.default_template =  """Answer the question based only on the following context:
+        self.default_template =  """Apenas baseado no contexto, responda a pergunta abaixo:
         {context}
 
-        Question: {question}
+        Pergunta: {question}
         """
 
 
