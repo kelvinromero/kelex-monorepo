@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="row col-8">
             <div class="player-columns px-2">
-                <youtube-player [videoId]="currentVid" suggestedQuality="highres" [height]="250" [width]="500" (stateChange)="onPlayerStateChange($event)" #player></youtube-player>
+                <youtube-player [videoId]="getVideoId(episode.mediaUrl)" suggestedQuality="highres" [height]="250" [width]="1000" (stateChange)="onPlayerStateChange($event)" #player></youtube-player>
             </div>
             <div class="d-flex player-columns px-2 mt-2 justify-content-center align-items-center">
                 <p *ngFor="let line of transcript_line" class="palavras py-2 px-4 mx-2">
