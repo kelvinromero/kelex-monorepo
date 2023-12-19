@@ -28,9 +28,9 @@ public class TranscriptService {
 
     @WithSpan
     @Cacheable(cacheNames = "transcripts")
-    public Transcript getTranscript(@SpanAttribute("video_id") String video_id) {
+    public Transcript getTranscript(@SpanAttribute("episode_id") String episode_id) {
         String jsonResponse = webClient.get()
-                .uri("/transcript?video_id=" + video_id)
+                .uri("/episode/" + episode_id + "/transcript")
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -50,8 +50,9 @@ public class TranscriptService {
     private ArrayList<LinkedHashMap> getDeserializedLines(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            Map<String, Object> jsonObj =  objectMapper.readValue(json, Map.class);
-            return (ArrayList<LinkedHashMap>) jsonObj.get("transcript");
+            Object jsonObj = objectMapper.readValue(json, ArrayList.class);
+
+            return (ArrayList<LinkedHashMap>) jsonObj;
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error deserializing JSON", e);
         }

@@ -67,10 +67,8 @@ public class EpisodeController
         Episode episode = episodeRepository.findById(id).orElse(null);
 
         try {
-            String video_id = episode.getMediaUrl().split("v=")[1];
-            log.info("getTranscript video_id: " + video_id);
-            transcriptService.getTranscript(video_id);
-            episode.setTranscript(transcriptService.getTranscript(video_id));
+            String episode_id = episode.getId();
+            episode.setTranscript(transcriptService.getTranscript(episode_id));
         } catch (Exception e) {
             log.error("Error getting transcript: " + e);
         }
