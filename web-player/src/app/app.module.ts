@@ -26,11 +26,9 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     HttpClientModule,
     MaterialModule,
     EpisodeModule,
-    PlayerModule,
     GraphQLModule,
     YouTubePlayerModule
   ],
-  providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

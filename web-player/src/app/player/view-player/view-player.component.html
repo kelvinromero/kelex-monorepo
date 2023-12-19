@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="row col-8">
             <div class="player-columns px-2">
-                <iframe #youtubeVideo width="100%" height="300" [src]="getSafeMediaUrl(episode.mediaUrl)" title="Tauz  - ANBU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <youtube-player [videoId]="currentVid" suggestedQuality="highres" [height]="250" [width]="500" #player></youtube-player>
             </div>
             <div class="d-flex player-columns px-2 mt-2 justify-content-center align-items-center">
                 <p *ngFor="let line of episode.transcript.lines" class="palavras py-2 px-4 mx-2" [ngClass]="{'current-line': line.start <= currentTime && currentTime <= line.end}">

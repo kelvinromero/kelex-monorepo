@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { YouTubePlayer } from '@angular/youtube-player';
 import { Apollo, gql } from 'apollo-angular';
 
 @Component({
@@ -10,38 +11,31 @@ import { Apollo, gql } from 'apollo-angular';
 })
 export class ViewPlayerComponent implements OnInit {
   @ViewChild('youtubeVideo') youtubeVideo: ElementRef | undefined;
+  @ViewChild('player') child_component!: YouTubePlayer;
+
   episode: any;
   currentTime: number = 0;
+  apiLoaded = false;
+  currentVid = "_f7AkEdmqpI"
 
   constructor(private apollo: Apollo, private sanitizer: DomSanitizer, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.searchEpisode();
-    this.loadYouTubeAPI();
+    if (!this.apiLoaded) {
+      // This code loads the IFrame Player API code asynchronously, according to the instructions at
+      // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.body.appendChild(tag);
+      this.apiLoaded = true;
+    }
   }
 
-  private loadYouTubeAPI() {
-    (window as any).onYouTubeIframeAPIReady = () => {
-      this.createYouTubePlayer();
-    };
-  }
-
-  private createYouTubePlayer() {
-    const player = new (window as any).YT.Player(this.youtubeVideo?.nativeElement, {
-      events: {
-        onReady: () => {
-          // Lógica adicional quando o player estiver pronto
-        },
-        onStateChange: (event: any) => {
-          if (event.data === (window as any).YT.PlayerState.PLAYING) {
-            setInterval(() => {
-              this.currentTime = player.getCurrentTime();
-            }, 1000);
-          }
-        },
-      },
-    });
-  }
+ 
+  someMethod(){
+    this.child_component.getCurrentTime(); // Or any public method
+  } 
 
   searchEpisode() {
     this.apollo.watchQuery({
@@ -75,6 +69,11 @@ export class ViewPlayerComponent implements OnInit {
         console.log(result.data['episodeById']);
         this.episode = result.data['episodeById'];
       });
+  }
+
+  getVideoId(url: string): string {
+    const match = url.match(/[?&]v=([^?&]+)/);
+    return match ? match[1] : '';
   }
 
   getSafeMediaUrl(url: any): SafeResourceUrl {
