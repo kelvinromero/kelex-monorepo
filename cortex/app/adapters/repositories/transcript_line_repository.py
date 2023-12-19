@@ -48,6 +48,19 @@ class TranscriptLinesRepository:
             body=transcript.dict()
         )
 
+    def delete_by_episode_id(self, episode_id: str):
+        self.setup_index()
+        self.es.delete_by_query(
+            index=DEFAULT_INDEX,
+            body={
+                "query": {
+                    "match": {
+                        "episode_id": episode_id
+                    }
+                }
+            }
+        )
+
     def find_by_episode_id(self, episode_id: str, size=100) -> [TranscriptLine]:
         res = self.es.search(
             index=DEFAULT_INDEX,

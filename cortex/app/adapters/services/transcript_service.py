@@ -11,7 +11,8 @@ class TranscriptService:
     @staticmethod
     def generate(episode_id, video_id) -> [TranscriptLine]:
         try:
-            transcript = YouTubeTranscriptApi.get_transcript(video_id)
+            transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['pt'])
+            TranscriptLinesRepository().delete_by_episode_id(episode_id)
             for line in transcript:
                 TranscriptLinesRepository().save(TranscriptLine(
                     episode_id=episode_id,
