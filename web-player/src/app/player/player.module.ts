@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../shared/material/material.module';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 
@@ -21,6 +22,7 @@ import { MaterialModule } from '../shared/material/material.module';
     RouterModule,
     HttpClientModule,
     MaterialModule,
+    YouTubePlayerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports:[ViewPlayerComponent]

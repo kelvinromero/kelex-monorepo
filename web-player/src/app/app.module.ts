@@ -10,6 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { EpisodeModule } from './episode/episode.module';
 import { PlayerModule } from './player/player.module';
 import { GraphQLModule } from './graphql.module';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { GraphQLModule } from './graphql.module';
     MaterialModule,
     EpisodeModule,
     PlayerModule,
-    GraphQLModule
+    GraphQLModule,
+    YouTubePlayerModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

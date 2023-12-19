@@ -1,13 +1,12 @@
 <div class="container mt-5">
     <form class="d-flex mb-5 justify-content-center mx-4" role="search">
-        <input class="form-control me-2" type="search" placeholder="Pesquise pelo nome de um episódio..." aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
+        <input class="form-control me-2" type="search" placeholder="Pesquise pelo nome de um episódio..." aria-label="Search" name="title" [(ngModel)]="titleEpisode">
+        <button class="btn btn-outline-success" (click)="searchEpisode()">Buscar</button>
     </form>
-    <div class="row justify-content-center">
-
+    <div class="row">
         <div class="card px-0 mx-3 mb-5" [routerLink]="['/player/episode', episode.id]" style="width: 18rem; cursor: pointer;" *ngFor="let episode of episodes">
            <div class="card-body px-0 pt-0">
-              <img src="https://static.todamateria.com.br/upload/pa/is/paisagem-natural-og.jpg" width="100%" alt="...">
+              <iframe width="100%" [src]="getSafeMediaUrl(episode.mediaUrl)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               <h5 class="card-title px-3 pt-3">{{episode.title}}</h5>
               <p class="card-text px-3">{{episode.description}}</p>
             </div>
