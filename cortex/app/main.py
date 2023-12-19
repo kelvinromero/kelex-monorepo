@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from app.adapters.repositories.transcript_line_repository import TranscriptLinesRepository
 from app.adapters.services.answer_service import ChatAboutEpisodeService
+from app.adapters.services.dictionary_service import DictionaryService
 from app.domain.models.message import Message
 from app.domain.models.transcript_line import TranscriptLine
 from app.adapters.services.transcript_service import TranscriptService
@@ -35,3 +36,7 @@ async def get_transcript(episode_id: str) -> [TranscriptLine]:
 @app.post("/episode/{episode_id}/chat")
 async def chat_about_episode(episode_id: str, message: Message) -> Message:
     return ChatAboutEpisodeService().get_answer(episode_id, message)
+
+@app.get("/word_definitions/{word}")
+async def get_word_definitions(word: str) -> [str]:
+    return DictionaryService().get_word_definitions(word)

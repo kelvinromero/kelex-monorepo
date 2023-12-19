@@ -52,7 +52,7 @@ services:
     networks:
       - clickhouse-setup_default
     environment:
-      - OPENAI_API_KEY=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
+      - OPENAI_API_KEY=<SET OPEN AI KEY>
       - OTEL_SERVICE_NAME=kelex-cortex
       - OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
       - OTEL_TRACES_EXPORTER=otlp

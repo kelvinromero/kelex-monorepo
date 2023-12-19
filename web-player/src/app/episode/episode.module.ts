@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    ListEpisodeComponent
+
   ],
   imports: [
     CommonModule,
@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     HttpClientModule,
     MaterialModule,
+    ListEpisodeComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports:[ListEpisodeComponent]

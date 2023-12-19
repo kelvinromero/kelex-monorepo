@@ -1,5 +1,6 @@
 package com.kelex.consumers.episodes;
 
+import com.kelex.consumers.services.TranscriptService;
 import com.kelex.consumers.shared.dto.Episode;
 import com.kelex.consumers.repositories.EpisodeRepository;
 import org.slf4j.Logger;
@@ -16,6 +17,9 @@ public class Receiver {
     @Autowired
     private EpisodeRepository repository;
 
+    @Autowired
+    private TranscriptService transcriptService;
+
     private static final Logger log = LoggerFactory.getLogger(Receiver.class);
 
     @RabbitHandler
@@ -26,6 +30,8 @@ public class Receiver {
     private void process(Episode episode) {
         try {
             log.info("Saving episode: " + episode);
+            String video_id = episode.getMediaUrl().split("v=")[1];
+            transcriptService.generateTranscript(episode.getId(), video_id);
             repository.save(episode);
             log.info("Episode saved: " + episode);
         } catch (Exception e) {

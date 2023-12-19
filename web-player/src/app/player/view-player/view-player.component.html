@@ -1,13 +1,14 @@
 <div>
     <p class="pt-3 ps-5" routerLink="/" style="cursor: pointer;">voltar para episódios</p>
-    <h2 class="mt-5 mb-5" style="text-align: center;">Episódio Ambu - Player Tauz</h2>
     <div class="row justify-content-center">
         <div class="row col-8">
             <div class="player-columns px-2">
-                <iframe width="100%" height="300" src="https://www.youtube.com/embed/Ah-E0ynhT50" title="Tauz  - ANBU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <youtube-player [videoId]="currentVid" suggestedQuality="highres" [height]="250" [width]="500" (stateChange)="onPlayerStateChange($event)" #player></youtube-player>
             </div>
             <div class="d-flex player-columns px-2 mt-2 justify-content-center align-items-center">
-                <p *ngFor="let palavra of palavras" class="palavras py-2 px-4 mx-2">{{palavra}}</p>
+                <p *ngFor="let line of transcript_line" class="palavras py-2 px-4 mx-2">
+                    {{ line }}
+                </p>
             </div>
         </div>
         <div class="player-columns col-3 ms-2 d-flex align-items-end justify-content-center">

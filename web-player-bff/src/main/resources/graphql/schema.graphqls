@@ -3,7 +3,7 @@ type Query {
     episodesByTitle(title: String!): [Episode]
     findEpisodeByFuzzyTitle(title: String!): [Episode]
     episodeById(id: ID!): Episode
-
+    wordDefinition(word: String!): [String]
 #    podcasts: [Podcast]
 #    podcastById(id: ID!): Podcast
 }
