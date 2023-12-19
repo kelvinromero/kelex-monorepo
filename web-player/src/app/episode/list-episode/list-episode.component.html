@@ -6,7 +6,7 @@
     <div class="row">
         <div class="card px-0 mx-3 mb-5" [routerLink]="['/player/episode', episode.id]" style="width: 18rem; cursor: pointer;" *ngFor="let episode of episodes">
            <div class="card-body px-0 pt-0">
-              <iframe width="100%" [src]="getSafeMediaUrl(episode.mediaUrl)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="100%" [src]="getYoutubeEmbedUrl(episode.mediaUrl)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               <h5 class="card-title px-3 pt-3">{{episode.title}}</h5>
               <p class="card-text px-3">{{episode.description}}</p>
             </div>

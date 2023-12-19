@@ -17,7 +17,8 @@ export class ViewPlayerComponent implements OnInit {
   transcript_line: string[] = [];
   currentTime: number = 0;
   apiLoaded = false;
-  currentVid = "_f7AkEdmqpI"
+  question: string = ''
+  chat: { content: string; role: string }[] = [];
 
   constructor(private apollo: Apollo, private sanitizer: DomSanitizer, private route: ActivatedRoute) { }
 
@@ -84,6 +85,36 @@ export class ViewPlayerComponent implements OnInit {
     })
       .valueChanges.subscribe((result: { data: any; }) => {
         this.episode = result.data['episodeById'];
+      });
+  }
+
+  searchQuestion() {
+    this.apollo
+      .mutate({
+        mutation: gql`
+          mutation chatAboutEpisode($episodeId: ID!, $message: String!) {
+            chatAboutEpisode(episodeId: $episodeId, message: $message) {
+              content
+              role
+            }
+          }
+        `,
+        variables: {
+          episodeId: parseInt(this.route.snapshot.params['episode_id']),
+          message: this.question
+        }
+      })
+      .subscribe({
+        next: (result: any) => {
+          const chatMessage = result.data['chatAboutEpisode'];
+          this.chat.push(chatMessage);
+          console.log(this.chat);
+          // Limpar a pergunta após enviar
+          this.question = '';
+        },
+        error: (error) => {
+          console.error(error);
+        }
       });
   }
 

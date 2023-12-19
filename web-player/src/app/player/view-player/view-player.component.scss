@@ -17,6 +17,30 @@
     border: 2px #ffff solid;
     border-radius: 10px;
 }
+.chat-message {
+    margin-bottom: 10px;
+    max-width: 70%; /* Ajuste conforme necessário */
+    word-wrap: break-word;
+    padding: 8px;
+    border-radius: 8px;
+  }
+  
+  .user-message {
+    align-self: flex-end;
+    background-color: #4caf50; /* Cor de fundo para mensagens do usuário */
+    color: #fff; /* Cor do texto para mensagens do usuário */
+  }
+  
+  .ia-message {
+    align-self: flex-start;
+    background-color: #2196f3; /* Cor de fundo para mensagens do IA */
+    color: #fff; /* Cor do texto para mensagens do IA */
+  }
+  
+  .role {
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
 .palavras:hover{
     background-color: #D5B4FF;

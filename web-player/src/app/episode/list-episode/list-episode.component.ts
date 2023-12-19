@@ -45,6 +45,21 @@ export class ListEpisodeComponent implements OnInit{
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+  getYoutubeEmbedUrl(youtubeUrl: string): string | null {
+    // Expressão regular para extrair o ID do vídeo de uma URL do YouTube
+    const youtubeRegex = /^(?:(?:https?:)?\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  
+    const match = youtubeUrl.match(youtubeRegex);
+  
+    if (match && match[1]) {
+      const videoId = match[1];
+      // URL de incorporação do YouTube
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+  
+    return null; // Retorna null se a URL não for válida
+  }
+
   searchEpisode(){
     this.apollo.watchQuery({
       query: gql`
